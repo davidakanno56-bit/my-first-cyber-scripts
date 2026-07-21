@@ -1,0 +1,16 @@
+[
+    {
+        "timestamp": "2026-07-21T16:07:33.927726+00:00",
+        "event_type": "AUTHENTICATION_FAILURE",
+        "source_ip": "185.220.101.5",
+        "severity": "HIGH",
+        "raw_message": "2026-07-21 10:05:12 Failed password for root from 185.220.101.5 port 22"
+    },
+    {
+        "timestamp": "2026-07-21T16:07:33.927777+00:00",
+        "event_type": "AUTHENTICATION_FAILURE",
+        "source_ip": "45.33.32.156",
+        "severity": "HIGH",
+        "raw_message": "2026-07-21 10:20:44 USER_AUTH_FAIL: High severity alert from 45.33.32.156"
+    }
+]
