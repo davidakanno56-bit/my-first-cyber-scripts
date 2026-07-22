@@ -5,8 +5,13 @@ import re
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from akanno_soc_tool import SOCTelemetryEngine, AUTH_LOG, WEB_LOG
+# Change this:
+# from 15_geoip_enricher import enrich_ip_location
 
-app = FastAPI(title="Akanno Labs SOC API")
+# To this:
+from geoip_enricher import enrich_ip_location
+
+app = FastAPI(title="Akanno Labs SOC API", version="4.0")
 
 # Enable CORS so web frontends (Bolt.new / React) can fetch data without browser blocking
 app.add_middleware(
@@ -69,6 +74,7 @@ def read_root():
         "endpoints": {
             "telemetry": "/api/telemetry",
             "wifi": "/api/wifi",
+            "geoip": "/api/geoip/{ip}",
             "docs": "/docs"
         }
     }
@@ -92,6 +98,12 @@ def get_wifi():
     """Endpoint fetched by the dashboard UI for saved Wi-Fi networks."""
     data = fetch_wifi_data()
     return {"status": "success", "total_networks": len(data), "networks": data}
+
+
+@app.get("/api/geoip/{ip}")
+def get_ip_geo(ip: str):
+    """Endpoint for retrieving real-time Geolocation context for a target IP address."""
+    return enrich_ip_location(ip)
 
 
 # --- SERVER RUNNER ---
